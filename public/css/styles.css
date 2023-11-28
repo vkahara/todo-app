@@ -1,16 +1,17 @@
 body {
-    background-color: #0a0f0d;
-    color: #c0c0c0; 
+    background-color: #282C34; 
+    color: #ABB2BF; 
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    text-align: center;
 }
 
 header, footer {
-    background-color: #12181b;
+    background-color: #21252B; 
     color: #ffffff;
     padding: 10px 0;
     text-align: center;
@@ -28,74 +29,81 @@ nav li {
 }
 
 nav a {
-    color: #4df9ff; 
+    color: #61AFEF; 
     text-decoration: none;
     transition: color 0.3s;
 }
 
 nav a:hover {
-    color: #ff4081; 
+    color: #E06C75; 
 }
 
 .container {
     margin: 20px auto;
     padding: 20px;
-    border: 1px solid #2a2f33;
+    border: 1px solid #3B4048; 
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    max-width: 800px; 
+    background: #1F2329; 
+    max-width: 800px;
     width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1); 
 }
 
 button, input[type="submit"], input[type="button"] {
-    background-color: #4df9ff; 
-    color: #000000;
+    background-color: #61AFEF; 
+    color: #282C34; 
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2); 
 }
 
 button:hover, input[type="submit"]:hover, input[type="button"]:hover {
-    background-color: #ff4081; 
-    transform: scale(1.05);
+    background-color: #E06C75; 
 }
 
 input, textarea {
-    background-color: #1e2428;
-    color: #ffffff;
-    border: 1px solid #2a2f33;
+    background-color: #2C313A; 
+    color: #ABB2BF; 
+    border: 1px solid #3B4048; 
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    width: 100%; 
+    width: 100%;
 }
 
 .note-form, .delete-form {
     margin-bottom: 10px;
 }
 
-.note-item {
-    background-color: #1e2428; 
-    color: #ffffff; 
-    padding: 10px;
+.note-form input[type="text"] {
+    max-width: 500px; 
+    width: 100%;
+    margin: 0 auto; 
     margin-bottom: 10px; 
-    display: flex; 
-    align-items: center; 
+    display: block; 
+}
+
+.note-form button {
+    margin-bottom: 30px
+}
+
+.note-item {
+    background-color: #2C313A; 
+    color: #ABB2BF; 
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
     border-radius: 5px;
     justify-content: space-between;
 }
 
-.note-content {
-    display: flex;
-    align-items: center;
-    flex-grow: 1; 
-}
-
 .note-text {
     flex-grow: 1;
-    text-align: center; /* Center the text */
+    text-align: center; 
 }
 
 .note-controls {
@@ -109,46 +117,60 @@ input, textarea {
 }
 
 .note-controls input[type="checkbox"] {
-    appearance: none; 
-    -webkit-appearance: none; 
-    -moz-appearance: none; 
-    background-color: #4df9ff; 
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #ABB2BF;
     margin: 0;
-    font-size: 1.5em; 
-    width: 1em; 
-    height: 1em; 
-    border-radius: 0.25em; 
+    font-size: 2em; 
+    width: 1em;
+    height: 1em;
+    border-radius: 0.25em;
     display: grid;
     place-content: center;
-    border: 2px solid #2a2f33; 
+    border: 3px solid #3B4048;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, border-color 0.3s;
+}
+
+.note-controls input[type="checkbox"]:hover {
+    background-color: #61AFEF;
+    transform: scale(1.2);
+    border-color: #61AFEF;
 }
 
 .note-controls input[type="checkbox"]:checked {
-    background-color: #ff4081; 
-    border-color: #ff4081; 
+    background-color: #61afef;
+    border-color: #7dc2fc;
 }
 
 .note-controls input[type="checkbox"]:checked::before {
-    content: '✓'; 
-    color: #000000; 
-    font-size: 0.8em; 
+    content: '✓';
+    color: #282C34;
+    font-size: 0.5em;
 }
 
 .delete-btn {
-    margin-left: 10px; 
+    background-color: #E06C75;
+    color: #282C34;
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-input[type="checkbox"] {
-    margin: 0;
+.delete-btn:hover {
+    background-color: #61AFEF;
+    transform: scale(1.1);
 }
 
 .note-done .note-text {
-    text-decoration: line-through; 
-    color: #777777; 
+    text-decoration: line-through;
+    color: #777777;
 }
 
-
-/* Responsive yes very good*/
+/* responsive very good yes */
 @media (max-width: 768px) {
     .container {
         width: 90%;
@@ -161,6 +183,20 @@ input[type="checkbox"] {
 
     nav li {
         margin: 5px 0;
+    }
+
+    .note-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .note-text {
+        text-align: left; 
+        margin: 10px 0; 
+    }
+
+    .note-controls {
+        justify-content: space-between;
     }
 }
 
