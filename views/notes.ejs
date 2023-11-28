@@ -9,19 +9,31 @@
     <button type="submit">Add Note</button>
   </form>
 
-  <!-- Existing notes list -->
-  <% if (notes && notes.length > 0) { %>
-    <ul>
-      <% notes.forEach(function(note) { %>
-        <li>
-          <input type="checkbox" <% if(note.done) { %>checked<% } %> > 
+  <% notes.forEach(function(note) { %>
+    <div>
+      <!-- Note update (checkmark) form -->
+      <form action="/notes/update/<%= note._id %>" method="POST">
+        <li class="<%= note.done ? 'done-note' : '' %>">
+          <input type="checkbox" name="done" onchange="this.form.submit()" <% if(note.done) { %>checked<% } %> >
           <%= note.text %>
         </li>
-      <% }) %>
-    </ul>
-  <% } else { %>
-    <p>You have no notes yet.</p>
-  <% } %>
+      </form>
+
+      <!-- Delete button form -->
+      <form action="/notes/delete/<%= note._id %>" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+  <% }) %>
 </div>
 
 <%- include('footer') %>
+
+<!-- Gray and line-through for done notes-->
+<style>
+  .done-note {
+    text-decoration: line-through;
+    color: grey;
+  }
+</style>
