@@ -2,17 +2,29 @@ body {
     background-color: #0a0f0d;
     color: #c0c0c0; 
     font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 header, footer {
     background-color: #12181b;
     color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
 }
 
 nav ul {
     list-style: none;
+    padding: 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+}
+
+nav li {
+    margin: 0 10px;
 }
 
 nav a {
@@ -26,14 +38,16 @@ nav a:hover {
 }
 
 .container {
-    margin: 20px;
+    margin: 20px auto;
     padding: 20px;
     border: 1px solid #2a2f33;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05); 
+    background: rgba(255, 255, 255, 0.05);
+    max-width: 800px; 
+    width: 100%;
 }
 
-button {
+button, input[type="submit"], input[type="button"] {
     background-color: #4df9ff; 
     color: #000000;
     border: none;
@@ -43,7 +57,7 @@ button {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-button:hover {
+button:hover, input[type="submit"]:hover, input[type="button"]:hover {
     background-color: #ff4081; 
     transform: scale(1.05);
 }
@@ -55,4 +69,102 @@ input, textarea {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
+    width: 100%; 
+}
+
+.note-form, .delete-form {
+    margin-bottom: 10px;
+}
+
+.note-item {
+    background-color: #1e2428; 
+    color: #ffffff; 
+    padding: 10px;
+    margin-bottom: 10px; 
+    display: flex; 
+    align-items: center; 
+    border-radius: 5px;
+    justify-content: space-between;
+}
+
+.note-content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; 
+}
+
+.note-text {
+    flex-grow: 1;
+    text-align: center; /* Center the text */
+}
+
+.note-controls {
+    display: flex;
+    align-items: center;
+}
+
+.note-controls form {
+    margin: 0;
+    padding: 0;
+}
+
+.note-controls input[type="checkbox"] {
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    background-color: #4df9ff; 
+    margin: 0;
+    font-size: 1.5em; 
+    width: 1em; 
+    height: 1em; 
+    border-radius: 0.25em; 
+    display: grid;
+    place-content: center;
+    border: 2px solid #2a2f33; 
+}
+
+.note-controls input[type="checkbox"]:checked {
+    background-color: #ff4081; 
+    border-color: #ff4081; 
+}
+
+.note-controls input[type="checkbox"]:checked::before {
+    content: '✓'; 
+    color: #000000; 
+    font-size: 0.8em; 
+}
+
+.delete-btn {
+    margin-left: 10px; 
+}
+
+input[type="checkbox"] {
+    margin: 0;
+}
+
+.note-done .note-text {
+    text-decoration: line-through; 
+    color: #777777; 
+}
+
+
+/* Responsive yes very good*/
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav li {
+        margin: 5px 0;
+    }
+}
+
+footer {
+    margin-top: auto;
+    padding: 10px;
 }

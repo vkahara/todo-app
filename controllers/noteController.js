@@ -22,10 +22,22 @@ exports.create = async (req, res) => {
   }
 };
 
+exports.update = async (req, res) => {
+  try {
+    const noteId = req.params.id;
+    const doneStatus = req.body.done ? true : false;
+    await Note.findByIdAndUpdate(noteId, { done: doneStatus });
+    res.redirect("/notes");
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 exports.delete = async (req, res) => {
   try {
-    await Note.findByIdAndRemove(req.params.id);
-    res.redirect("/");
+    const noteId = req.params.id;
+    await Note.findByIdAndDelete(noteId);
+    res.redirect("/notes");
   } catch (err) {
     res.status(500).send(err);
   }
