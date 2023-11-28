@@ -1,0 +1,27 @@
+<%- include('header', { title: 'Your Notes' }) %>
+
+<div class="container">
+  <h1>Your Notes</h1>
+
+  <!-- Form for adding a new note -->
+  <form action="/notes/create" method="POST">
+    <input type="text" name="noteText" placeholder="Enter your note here">
+    <button type="submit">Add Note</button>
+  </form>
+
+  <!-- Existing notes list -->
+  <% if (notes && notes.length > 0) { %>
+    <ul>
+      <% notes.forEach(function(note) { %>
+        <li>
+          <input type="checkbox" <% if(note.done) { %>checked<% } %> > 
+          <%= note.text %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>You have no notes yet.</p>
+  <% } %>
+</div>
+
+<%- include('footer') %>

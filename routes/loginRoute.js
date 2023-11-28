@@ -9,5 +9,3 @@ app.get('/', function(res, req) {
 
 app.post('/auth', loginController.login); //Authenticate user
 app.get('/notes', loginController.notesView) //View notes if authenticated or ask user to login
-
-
