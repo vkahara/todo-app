@@ -3,11 +3,12 @@ const Note = require("../models/noteModel");
 exports.list = async (req, res) => {
   try {
     const notes = await Note.find();
-    res.render("index", { notes });
+    res.render("notes", { title: "Your Notes", notes });
   } catch (err) {
     res.status(500).send(err);
   }
 };
+
 
 exports.create = async (req, res) => {
   try {
