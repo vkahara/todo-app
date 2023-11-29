@@ -1,26 +1,40 @@
 const Note = require("../models/noteModel");
 
 exports.list = async (req, res) => {
+  if (!req.session.loggedin) {
+      return res.redirect('/login');
+  }
+
   try {
-    const notes = await Note.find();  // Fetch all notes
-    res.render("notes", { title: "Your Notes", notes });  // Render them on notes.ejs
+      const notes = await Note.find({ user: req.session.userId });
+      res.render("notes", { 
+          title: "Your Notes", 
+          notes, 
+          username: req.session.username
+      });
   } catch (err) {
-    res.status(500).send(err);
+      res.status(500).send(err);
   }
 };
 
 
 exports.create = async (req, res) => {
+  if (!req.session.loggedin) {
+      return res.redirect('/login');
+  }
+
   try {
-    const newNote = new Note({
-      text: req.body.noteText,  // Get note text from the form
-    });
-    await newNote.save();  // Save the new note
-    res.redirect("/notes");  // Redirect back to the notes page
+      const newNote = new Note({
+          text: req.body.noteText,
+          user: req.session.userId // Store the user's ID with the note
+      });
+      await newNote.save();
+      res.redirect("/notes");
   } catch (err) {
-    res.status(500).send(err);
+      res.status(500).send(err);
   }
 };
+
 
 exports.update = async (req, res) => {
   try {
