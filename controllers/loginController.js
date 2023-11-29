@@ -1,48 +1,52 @@
-const mysql = require('mysql');
-const express = require('express');
-const session = require('express-session');
-const path = require('path') // All the required packages for login and session control
+const mongoose = require('mongodb');
+const app = require('../index')
+const session = require('express-session')
+const path = require('path'); // All the required packages for login and session control
 
-const connection = mysql.createConnection({ // The database connection runnning a local mysql
-    host: 'localhost',
-    user: 'admin',
-    password: 'admin',
-    database: 'todo-backend'
-});
+//database
+const url = "mongodb+srv://1:1@cluster0.mh1o3kp.mongodb.net/?retryWrites=true&w=majority";
 
-const app = express();
-
-app.use(session({ // The modules used and their configs
-    secret: 'supersecretsecret',
+app.use(session({
+    secret: 'secret',
     resave: true,
     saveUninitialized: true
+
 }));
 
-app.use(express.json()); 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'static')));
+mongoose.connect(url)
+    .then( () => {
+        console.log('Connected to the database ')
+    })
+    .catch( (err) => {
+        console.error(`Error connecting to the database. n${err}`);
+    })
+        
 
-exports.login = (res, req) => { //The login function itself
+exports.login = ('/auth', function(res, req) { //The login function itself
     let username = req.body.username; // Saving request username and password
     let password = req.body.username;
 
     if (username && password) { // Comparing login info to our database and ensure given info is not empty.
-        connection.query('SELECT * FROM users WHERE username = ? AND password = ?'), [username, password], function(err, results, fields) {
-            if (err) throw err; //Error handling in query.
-            if (results.length > 0) { //If exists in database, request a session and authenticate the user for a valid session.
+        username.find({username: username} && password.find({password: password}), function(err, data) {
+            if(err){ //Error handling
+                console.log(err);
+                return;
+            }
+
+            if(data.length > 0) { //If found
                 req.session.loggedin = true; //Valid session given
                 req.session.username = username; //Username set for other uses
                 res.redirect('/'); // Redirect to homepage. This should be notes view per user.
-            } else {
-                res.send('Incorrect username or password'); //If not found send a response of incorrect credentials.
+            } else { //Otherwise alert of incorrect credentials
+                res.send('Incorrect username or password!');
             }
             res.end();
+        });
+     } else { //If no login was attempted send a response to enter them.
+            res.send('Enter username and password');
+            res.end();
         }
-    } else {
-        res.send('Enter username and password')
-        res.end();
-    }
-}
+    });
 
 exports.notesView = (req, res) => { //request to view notes is user dependent and requires authentication
     if (req.session.loggedin) { //Check session validity
@@ -52,5 +56,3 @@ exports.notesView = (req, res) => { //request to view notes is user dependent an
     }
     res.end();
 }
-
-module.exports = app;
