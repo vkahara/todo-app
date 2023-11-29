@@ -1,34 +1,44 @@
 const Note = require("../models/noteModel");
 
-exports.list = (req, res) => {
-  Note.find((err, notes) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.render("index", { notes });
-    }
-  });
+exports.list = async (req, res) => {
+  try {
+    const notes = await Note.find();  // Fetch all notes
+    res.render("notes", { title: "Your Notes", notes });  // Render them on notes.ejs
+  } catch (err) {
+    res.status(500).send(err);
+  }
 };
 
-exports.create = (req, res) => {
-  const note = new Note({
-    text: req.body.text,
-  });
-  note.save((err, note) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.redirect("/");
-    }
-  });
+
+exports.create = async (req, res) => {
+  try {
+    const newNote = new Note({
+      text: req.body.noteText,  // Get note text from the form
+    });
+    await newNote.save();  // Save the new note
+    res.redirect("/notes");  // Redirect back to the notes page
+  } catch (err) {
+    res.status(500).send(err);
+  }
 };
 
-exports.delete = (req, res) => {
-  Note.findByIdAndRemove(req.params.id, (err) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.redirect("/");
-    }
-  });
+exports.update = async (req, res) => {
+  try {
+    const noteId = req.params.id;
+    const doneStatus = req.body.done ? true : false;
+    await Note.findByIdAndUpdate(noteId, { done: doneStatus });
+    res.redirect("/notes");
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+exports.delete = async (req, res) => {
+  try {
+    const noteId = req.params.id;
+    await Note.findByIdAndDelete(noteId);
+    res.redirect("/notes");
+  } catch (err) {
+    res.status(500).send(err);
+  }
 };

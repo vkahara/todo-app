@@ -1,8 +1,7 @@
-const Model = require("../models/noteModel");
+const Note = require("../models/noteModel");
 
 exports.index = (req, res) => {
-  const data = Model.getData();
-  res.render("index", { title: "Notes Application", data });
+  res.render("index", { title: "Notes Application" });
 };
 
 exports.about = (req, res) => {
