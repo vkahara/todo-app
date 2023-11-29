@@ -13,4 +13,11 @@
                 <li><a href="/about">About</a></li>
             </ul>
         </nav>
+
+        <% if (locals.username) { %>
+            <div class="header-username">
+                Logged in as: <%= locals.username %>
+            </div>
+        <% } %>
+        
     </header>
