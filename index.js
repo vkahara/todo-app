@@ -26,6 +26,15 @@ mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Connected to the database'))
     .catch((err) => console.error(`Error connecting to the database. \n${err}`));
 
+
+app.use((req, res, next) => {
+    if (req.session.loggedin) {
+        res.locals.username = req.session.username;
+    }
+    next();
+});
+
+
 app.use("/", noteRouter);
 app.use("/", generalRouter);
 app.use("/", loginRouter);

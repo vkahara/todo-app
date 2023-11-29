@@ -11,13 +11,13 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/notes">Notes</a></li>
                 <li><a href="/about">About</a></li>
-
-                <% if (typeof username !== 'undefined') { %>
-                    <div class="header-username">
-                        Logged in as, <%= username %>
-                    </div>
-                <% } %>
-
             </ul>
         </nav>
+
+        <% if (locals.username) { %>
+            <div class="header-username">
+                Logged in as: <%= locals.username %>
+            </div>
+        <% } %>
+        
     </header>

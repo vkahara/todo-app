@@ -1,9 +1,21 @@
-<%- include('header', { title: 'About - TODO Application' }) %>
+<%- include('header') %>
 
 <div class="container">
-    <h1>Welcome to the TODO Application</h1>
-    <a href="/login">Login</a> 
-    <a href="/register">Register</a>
+    <h1 style="font-size: 50px;">Welcome to the TODO Application</h1>
+
+    <% if (locals.username) { %>
+        <p>Logged in as <%= locals.username %></p>
+        <form action="/logout" method="post">
+            <input type="submit" value="Logout" class="button">
+        </form>
+    <% } else { %>
+        <form action="/login" method="get">
+            <input type="submit" value="Login" class="button">
+        </form>
+        <form action="/register" method="get">
+            <input type="submit" value="Register" class="button">
+        </form>
+    <% } %>
 </div>
 
 <%- include('footer') %>
