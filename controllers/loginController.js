@@ -3,9 +3,10 @@ const app = require('../index')
 const session = require('express-session')
 const path = require('path'); // All the required packages for login and session control
 const User = require("../models/loginModel");
+require('dotenv').config();
 
 //database
-const url = "mongodb+srv://1:1@cluster0.mh1o3kp.mongodb.net/?retryWrites=true&w=majority";
+const url = process.env.MONGODB_URI;
 
 app.use(session({
     secret: 'secret',

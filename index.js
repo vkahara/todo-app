@@ -4,9 +4,11 @@ const noteRouter = require("./routes/noteRoutes");
 const router = require("./routes/router");
 const path = require("path");
 const mongoose = require("mongoose");
+require('dotenv').config();
+
 
 //database
-const url = "mongodb+srv://1:1@cluster0.mh1o3kp.mongodb.net/?retryWrites=true&w=majority";
+const url = process.env.MONGODB_URI;
 
 mongoose.connect(url)
     .then( () => {
