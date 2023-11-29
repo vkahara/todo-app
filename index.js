@@ -28,6 +28,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/", noteRouter);
 app.use("/", router);
 
+// Login
+app.get("/login", (req, res) => {
+    res.render("login");
+  });
+
+
 
 //server
 app.listen(3000, () => {
