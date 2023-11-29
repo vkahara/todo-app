@@ -1,0 +1,29 @@
+<%- include('header', { title: 'Your Notes' }) %>
+
+<div class="container">
+  <h1>Your Notes</h1>
+
+  <!-- Form for adding a new note -->
+  <form action="/notes/create" method="POST" class="note-form">
+    <input type="text" name="noteText" placeholder="Enter your note here">
+    <button type="submit">Add Note</button>
+  </form>
+
+  <% notes.forEach(function(note) { %>
+    <div class="note-item <%= note.done ? 'note-done' : '' %>">
+      <label for="note-<%= note._id %>" class="note-text"><%= note.text %></label>
+      <div class="note-controls">
+        <form action="/notes/update/<%= note._id %>" method="POST">
+          <input type="checkbox" id="note-<%= note._id %>" name="done" onchange="this.form.submit()" <% if(note.done) { %>checked<% } %> >
+        </form>
+        <!-- Delete button form -->
+        <form action="/notes/delete/<%= note._id %>" method="POST" class="delete-form">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="delete-btn">Delete</button>
+        </form>
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+<%- include('footer') %>
