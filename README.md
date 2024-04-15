@@ -1,7 +1,7 @@
 
 # TODO Application
 
-A Node.js-based full-stack TODO application, made for a backend-course (hence the name), integrating Express for backend routing, MongoDB with Mongoose for data management, bcrypt for secure authentication, and EJS for dynamic frontend rendering. It offers a straightforward platform for users to manage their todo items, with personalized accounts and sessions.
+A Node.js-based full-stack TODO application, made for a backend-course, integrating Express for backend routing, MongoDB with Mongoose for data management, bcrypt for secure authentication, and EJS for dynamic frontend rendering. It offers a straightforward platform for users to manage their todo items, with personalized accounts and sessions.
 
 ## Quick Start
 
